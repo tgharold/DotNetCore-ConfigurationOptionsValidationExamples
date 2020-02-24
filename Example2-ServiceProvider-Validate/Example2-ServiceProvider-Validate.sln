@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FCCBBB79-845D-4F05-A5BF-A55B178FA7A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example2Api", "src\Example2Api\Example2Api.csproj", "{7B60DA87-63DA-4CDA-A64F-DA1D14BCBDE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,5 +18,22 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B60DA87-63DA-4CDA-A64F-DA1D14BCBDE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B60DA87-63DA-4CDA-A64F-DA1D14BCBDE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B60DA87-63DA-4CDA-A64F-DA1D14BCBDE0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7B60DA87-63DA-4CDA-A64F-DA1D14BCBDE0}.Debug|x64.Build.0 = Debug|Any CPU
+		{7B60DA87-63DA-4CDA-A64F-DA1D14BCBDE0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7B60DA87-63DA-4CDA-A64F-DA1D14BCBDE0}.Debug|x86.Build.0 = Debug|Any CPU
+		{7B60DA87-63DA-4CDA-A64F-DA1D14BCBDE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B60DA87-63DA-4CDA-A64F-DA1D14BCBDE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B60DA87-63DA-4CDA-A64F-DA1D14BCBDE0}.Release|x64.ActiveCfg = Release|Any CPU
+		{7B60DA87-63DA-4CDA-A64F-DA1D14BCBDE0}.Release|x64.Build.0 = Release|Any CPU
+		{7B60DA87-63DA-4CDA-A64F-DA1D14BCBDE0}.Release|x86.ActiveCfg = Release|Any CPU
+		{7B60DA87-63DA-4CDA-A64F-DA1D14BCBDE0}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7B60DA87-63DA-4CDA-A64F-DA1D14BCBDE0} = {FCCBBB79-845D-4F05-A5BF-A55B178FA7A4}
 	EndGlobalSection
 EndGlobal
