@@ -20,11 +20,9 @@ Examples of IOptions&lt;T> validation in .NET Core
 
 The Options pattern in .NET Core has a few [different ways of validating configuration/options](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-3.1#options-validation).  The solutions in this repository attempt to explore the different approaches and the good/bad of each.
 
-In both of the existing .NET Core approaches (example 1 and 2), validation of the options object instance does not happen until the first usage.  
+In both of the existing .NET Core approaches (example 1 and 2), validation of the options object instance does not happen until the first usage.  If the object instance is passed in as `IOptions<T>` then validation only happens on the first access (even if the underlying configuration changes).  On the other hand, if you pass the option object in as `IOptionsSnapshot<T>` then validation happens on every new scope (usually every request if passed into the constructor of the controller).
 
 One approach to dealing with the lazy-evaluation of valdiation rules would be to add those `IOptions<T>` as parameters to the `Startup.Configure()` and then instantiate a copy of every options object.  This would give you a way to validate that anything in the `appsettings*.json` files (or environment variables) injected at startup are correct.
-
-TODO: Dealing with configuration that changes during run-time.
 
 # Examples
 
