@@ -20,7 +20,7 @@ namespace Example1Api.Extensions
             
             //Notes:
             // - Validation code runs the first time an instance is requested from the container
-            // - https://github.com/dotnet/extensions/issues/459 (eager validation)
+            // - https://github.com/dotnet/extensions/issues/459 (eager validation, maybe in future .NET Core)
             // - https://stackoverflow.com/a/51693303 (discussion)
 
             services.AddOptions<T>()
