@@ -28,13 +28,15 @@ One approach to dealing with the lazy-evaluation of valdiation rules would be to
 
 The main differences between the approaches to validation takes place in the `ConfigureAndValidateSection<T>()` method in the `IServiceCollectionExtensions` class.
 
+Because the `DatabaseOptions` object is passed into the `WeatherForecastController` constructor, simply running the project will let you experiment with when validation fires.  Changing values in `appsettings.json` is also a good way to experiment.
+
 ## Example 1: ValidateDataAnnotations()
 
 Uses the [Microsoft Data Annotations](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=netcore-3.1) approach of attribute-based validation on the C# model that represents the section in the configuration.
 
 ### General
 
-- Validation will execute the first time that the instance is accessed (see the WeatherForecastController constructor).
+- Validation will not happen until the first time that the instance is accessed (see the WeatherForecastController constructor).
 
 ### Pros/Cons
 
@@ -49,7 +51,7 @@ Uses the `.Validate()` method and custom validation methods on the C# classes.  
 
 ### General
 
-- Validation will execute the first time that the instance is accessed (see the WeatherForecastController constructor).
+- Validation will not happen until the first time that the instance is accessed (see the WeatherForecastController constructor).
 
 ### Pros/Cons
 
