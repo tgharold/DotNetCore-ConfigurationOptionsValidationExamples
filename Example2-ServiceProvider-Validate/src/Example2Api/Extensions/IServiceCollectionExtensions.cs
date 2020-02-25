@@ -26,7 +26,7 @@ namespace Example2Api.Extensions
 
             services.AddOptions<T>()
                 .Bind(configurationSection)
-                .Validate(x => x.IsValid());
+                .Validate(x => x.IsValid(), "custom error");
 
             return configurationSection.Get<T>();
         }

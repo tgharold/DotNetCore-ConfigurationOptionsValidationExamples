@@ -30,7 +30,8 @@ namespace Example2Api.Controllers
 
             /* if IOptions validation fails, code will error out here (first access)
              * example:
-             *   OptionsValidationException: A validation error has occured.
+             *   - OptionsValidationException: A validation error has occured.
+             *   - OptionsValidationException: custom error
              */
             _databaseOptions = databaseOptionsAccessor.Value;
         }
