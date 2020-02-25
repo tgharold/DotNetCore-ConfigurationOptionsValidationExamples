@@ -1,23 +1,20 @@
-using System;
+using System.ComponentModel.DataAnnotations;
 using Example1Api.Attributes;
-using Example1Api.Interfaces;
 
 namespace Example1Api.Options
 {
     [ConfigurationSectionName("Database")]
-    public class DatabaseOptions : ICanValidate
+    public class DatabaseOptions
     {
-        public DatabaseSchemaNames SchemaNames { get; set; } = new DatabaseSchemaNames(); 
+        public DatabaseSchemaNames SchemaNames { get; set; } = new DatabaseSchemaNames();
+        
+        [Required]
         public string DatabaseType { get; set; }
         
         public class DatabaseSchemaNames
         {
-            public string ZebraPillarEmerald { get; set; } = "zpe";
-        }
-
-        public bool IsValid()
-        {
-            throw new NotImplementedException();
+            [Required]
+            public string ZebraPillarEmerald { get; set; }
         }
     }
 }

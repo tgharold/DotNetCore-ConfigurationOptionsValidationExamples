@@ -1,17 +1,13 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using Example1Api.Attributes;
-using Example1Api.Interfaces;
 
 namespace Example1Api.Options
 {
     [ConfigurationSectionName("ConnectionStrings")]
-    public class ConnectionStringsOptions : ICanValidate
+    public class ConnectionStringsOptions
     {
+        [Required]
         public string ZebraPillarEmerald { get; set; }
-        
-        public bool IsValid()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

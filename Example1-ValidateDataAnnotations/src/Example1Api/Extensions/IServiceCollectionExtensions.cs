@@ -1,7 +1,6 @@
 using System;
 using System.Reflection;
 using Example1Api.Attributes;
-using Example1Api.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,7 +11,7 @@ namespace Example1Api.Extensions
         public static T ConfigureAndValidateSection<T>(
             this IServiceCollection services,
             IConfiguration configuration
-            ) where T : class, ICanValidate
+            ) where T : class
         {
             var sectionName = typeof(T).GetCustomAttribute<ConfigurationSectionNameAttribute>()?.SectionName
                 ?? throw new ArgumentNullException(nameof(ConfigurationSectionNameAttribute));
@@ -25,16 +24,10 @@ namespace Example1Api.Extensions
             // - https://stackoverflow.com/a/51693303 (discussion)
 
             services.AddOptions<T>()
-                .Bind(configurationSection);
+                .Bind(configurationSection)
+                .ValidateDataAnnotations()
+                ;
             
-            
-
-            services.PostConfigureAll<T>(x =>
-            {
-                var validity = x.IsValid(); 
-                
-            });
-
             return configurationSection.Get<T>();
         }
 
