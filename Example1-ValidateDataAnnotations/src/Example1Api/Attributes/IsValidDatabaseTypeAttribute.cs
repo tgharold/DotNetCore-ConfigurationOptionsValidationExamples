@@ -5,12 +5,12 @@ using Example1Api.Constants;
 
 namespace Example1Api.Attributes
 {
-    public class IsValidDatabaseType : ValidationAttribute
+    public class IsValidDatabaseTypeAttribute : ValidationAttribute
     {
         //TODO: Figure out why the error message displays without the member (property) name.
         //   Example: DataAnnotation validation failed for members: '' with the error: 'Value is required.'.
         
-        public IsValidDatabaseType(
+        public IsValidDatabaseTypeAttribute(
             bool allowNull = false
             )
         {
