@@ -7,11 +7,13 @@ namespace Example2Api.Options
     [ConfigurationSectionName("ConnectionStrings")]
     public class ConnectionStringsOptions : ICanValidate
     {
-        public string Conneciton1 { get; set; }
+        public string Connection1 { get; set; }
         
         public bool IsValid()
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(Connection1)) return false;
+            
+            return true;
         }
     }
 }

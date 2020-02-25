@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Example2Api.Options;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Example2Api.Controllers
 {
@@ -18,9 +19,20 @@ namespace Example2Api.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        private readonly DatabaseOptions _databaseOptions;
+        
+        public WeatherForecastController(
+            ILogger<WeatherForecastController> logger,
+            IOptions<DatabaseOptions> databaseOptionsAccessor
+            )
         {
             _logger = logger;
+
+            /* if IOptions validation fails, code will error out here (first access)
+             * example:
+             *   OptionsValidationException: A validation error has occured.
+             */
+            _databaseOptions = databaseOptionsAccessor.Value;
         }
 
         [HttpGet]

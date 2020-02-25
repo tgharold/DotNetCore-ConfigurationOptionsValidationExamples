@@ -1,4 +1,3 @@
-using System;
 using Example2Api.Attributes;
 using Example2Api.Interfaces;
 
@@ -17,7 +16,10 @@ namespace Example2Api.Options
 
         public bool IsValid()
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(DatabaseType)) return false;
+            if (string.IsNullOrEmpty(SchemaNames?.Schema1)) return false;
+
+            return true;
         }
     }
 }

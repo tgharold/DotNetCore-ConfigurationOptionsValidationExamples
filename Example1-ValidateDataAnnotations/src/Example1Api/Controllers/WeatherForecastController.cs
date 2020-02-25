@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Example1Api.Options;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Example1Api.Controllers
 {
@@ -18,9 +19,21 @@ namespace Example1Api.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        private readonly DatabaseOptions _databaseOptions;
+
+        public WeatherForecastController(
+            ILogger<WeatherForecastController> logger,
+            IOptions<DatabaseOptions> databaseOptionsAccessor
+            )
         {
             _logger = logger;
+            
+            /* if IOptions validation fails, code will error out here (first access)
+             * example:
+             *   DataAnnotation validation failed for members: 'DatabaseType' with the
+             *   error: 'The DatabaseType field is required.'.
+             */
+            _databaseOptions = databaseOptionsAccessor.Value;
         }
 
         [HttpGet]
