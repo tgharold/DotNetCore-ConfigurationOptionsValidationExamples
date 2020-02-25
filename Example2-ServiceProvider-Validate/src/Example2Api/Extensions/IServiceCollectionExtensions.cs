@@ -19,11 +19,6 @@ namespace Example2Api.Extensions
             
             var configurationSection = configuration.GetSection(sectionName);
             
-            //Notes:
-            // - Validation code (maybe) runs the first time an instance is requested from the container
-            // - https://github.com/dotnet/extensions/issues/459 (eager validation, maybe in future .NET Core)
-            // - https://stackoverflow.com/a/51693303 (discussion)
-
             services.AddOptions<T>()
                 .Bind(configurationSection)
                 .Validate(x => x.IsValid(), "custom error");
