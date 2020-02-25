@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using Example1Api.Attributes;
 
@@ -8,6 +7,6 @@ namespace Example1Api.Options
     public class ConnectionStringsOptions
     {
         [Required]
-        public string ZebraPillarEmerald { get; set; }
+        public string Connection1 { get; set; }
     }
 }

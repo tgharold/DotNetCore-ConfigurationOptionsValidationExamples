@@ -12,7 +12,7 @@ namespace Example2Api.Options
         
         public class DatabaseSchemaNames
         {
-            public string ZebraPillarEmerald { get; set; } = "zpe";
+            public string Schema1 { get; set; }
         }
 
         public bool IsValid()

@@ -25,15 +25,8 @@ namespace Example2Api.Extensions
             // - https://stackoverflow.com/a/51693303 (discussion)
 
             services.AddOptions<T>()
-                .Bind(configurationSection);
-            
-            
-
-            services.PostConfigureAll<T>(x =>
-            {
-                var validity = x.IsValid(); 
-                
-            });
+                .Bind(configurationSection)
+                .Validate(x => x.IsValid());
 
             return configurationSection.Get<T>();
         }

@@ -14,7 +14,7 @@ namespace Example1Api.Options
         public class DatabaseSchemaNames
         {
             [Required]
-            public string ZebraPillarEmerald { get; set; }
+            public string Schema1 { get; set; }
         }
     }
 }
