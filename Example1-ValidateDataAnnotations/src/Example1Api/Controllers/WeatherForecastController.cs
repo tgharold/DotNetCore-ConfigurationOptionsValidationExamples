@@ -23,7 +23,7 @@ namespace Example1Api.Controllers
 
         public WeatherForecastController(
             ILogger<WeatherForecastController> logger,
-            IOptions<DatabaseOptions> databaseOptionsAccessor
+            IOptionsSnapshot<DatabaseOptions> databaseOptionsAccessor
             )
         {
             _logger = logger;
