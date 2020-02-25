@@ -1,3 +1,5 @@
+using Example2Api.Extensions;
+using Example2Api.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -10,14 +12,16 @@ namespace Example2Api
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration _configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureAndValidateSection<DatabaseOptions>(_configuration);
+            services.ConfigureAndValidateSection<ConnectionStringsOptions>(_configuration);            
             services.AddControllers();
         }
 
