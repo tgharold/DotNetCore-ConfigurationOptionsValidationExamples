@@ -11,7 +11,7 @@ namespace Example1Api.Options
         [Required]
         public string Comment1 { get; set; }
         
-        [Required]
+        [IsValidDatabaseType]
         public string DatabaseType { get; set; }
         
         [Required]
@@ -19,6 +19,8 @@ namespace Example1Api.Options
         
         public class DatabaseSchemaNames
         {
+            //NOTE: DataAnnotation validation does not validate sub-objects out of the box.  Custom attributes/code required. 
+            
             [Required]
             public string Schema1 { get; set; }
         }
