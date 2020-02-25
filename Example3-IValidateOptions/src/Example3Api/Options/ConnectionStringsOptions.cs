@@ -1,8 +1,7 @@
-using System;
-using Example2Api.Attributes;
-using Example2Api.Interfaces;
+using Example3Api.Attributes;
+using Example3Api.Interfaces;
 
-namespace Example2Api.Options
+namespace Example3Api.Options
 {
     [ConfigurationSectionName("ConnectionStrings")]
     public class ConnectionStringsOptions : ICanValidate

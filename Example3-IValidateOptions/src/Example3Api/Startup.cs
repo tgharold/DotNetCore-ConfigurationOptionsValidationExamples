@@ -1,12 +1,12 @@
-using Example2Api.Extensions;
-using Example2Api.Options;
+using Example3Api.Extensions;
+using Example3Api.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Example2Api
+namespace Example3Api
 {
     public class Startup
     {

@@ -1,11 +1,11 @@
 using System;
 using System.Reflection;
-using Example2Api.Attributes;
-using Example2Api.Interfaces;
+using Example3Api.Attributes;
+using Example3Api.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Example2Api.Extensions
+namespace Example3Api.Extensions
 {
     public static class IServiceCollectionExtensions
     {

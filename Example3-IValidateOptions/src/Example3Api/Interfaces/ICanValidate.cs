@@ -1,4 +1,4 @@
-namespace Example2Api.Interfaces
+namespace Example3Api.Interfaces
 {
     public interface ICanValidate
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Example2Api.Attributes
+namespace Example3Api.Attributes
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class ConfigurationSectionNameAttribute : Attribute

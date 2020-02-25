@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Example2Api.Options;
+using Example3Api.Options;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Example2Api.Controllers
+namespace Example3Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

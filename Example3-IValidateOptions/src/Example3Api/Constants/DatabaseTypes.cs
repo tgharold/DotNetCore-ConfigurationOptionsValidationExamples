@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Example2Api.Constants
+namespace Example3Api.Constants
 {
     public static class DatabaseTypes
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Example2Api
+namespace Example3Api
 {
     public class WeatherForecast
     {
