@@ -41,7 +41,9 @@ Uses the [Microsoft Data Annotations](https://docs.microsoft.com/en-us/dotnet/ap
 ### Pros/Cons
 
 - Pro: The data annotation approach gives back a full list of all validation that failed.
+- Pro: Data annotation validation is simple to setup and works well for flat options.
 - Con: Data annotation via attributes quickly gets complicated when you have fields relying on each other.
+- Con: Data annotation validation does not validate sub-objects (without custom code).
 
 ## Example 2: Validate()
 
