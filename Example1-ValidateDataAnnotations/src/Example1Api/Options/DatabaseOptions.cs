@@ -9,7 +9,13 @@ namespace Example1Api.Options
         public DatabaseSchemaNames SchemaNames { get; set; } = new DatabaseSchemaNames();
         
         [Required]
+        public string Comment1 { get; set; }
+        
+        [Required]
         public string DatabaseType { get; set; }
+        
+        [Required]
+        public string Comment2 { get; set; }
         
         public class DatabaseSchemaNames
         {
