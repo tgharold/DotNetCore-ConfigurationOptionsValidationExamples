@@ -30,8 +30,8 @@ namespace Example3Api.Controllers
 
             /* if IOptions validation fails, code will error out here (first access)
              * example:
-             *   - OptionsValidationException: A validation error has occured.
-             *   - OptionsValidationException: custom error
+             *   - OptionsValidationException: Comment1 is required.; DatabaseType is required.; Comment2 is required.;
+             *     SchemaNames.Schema1 is required.; SchemaNames.Schema2 is required.
              */
             _databaseOptions = databaseOptionsAccessor.Value;
         }

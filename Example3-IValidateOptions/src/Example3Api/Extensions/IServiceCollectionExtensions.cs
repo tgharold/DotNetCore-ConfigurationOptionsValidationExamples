@@ -19,9 +19,15 @@ namespace Example3Api.Extensions
             var configurationSection = configuration.GetSection(sectionName);
 
             services.AddOptions<T>()
-                .Bind(configurationSection)
-                ;
-                //TODO: .Validate(x => x.IsValid(), "custom error");
+                .Bind(configurationSection);
+        
+                /* For the IValidateOptions approach, we don't wire up validation here.  Instead we just inject those
+                 * validators into the DI system in Startup.ConfigureServices():
+                 *
+                 *   services.AddSingleton<IValidateOptions<T>, TValidator>();
+                 *
+                 * It reduces the need for a marker/trait interface like was used in Example 2.
+                 */
 
             return configurationSection.Get<T>();
         }

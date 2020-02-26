@@ -1,10 +1,12 @@
 using Example3Api.Extensions;
 using Example3Api.Options;
+using Example3Api.OptionsValidators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace Example3Api
 {
@@ -21,7 +23,11 @@ namespace Example3Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureAndValidateSection<DatabaseOptions>(_configuration);
-            services.ConfigureAndValidateSection<ConnectionStringsOptions>(_configuration);            
+            services.ConfigureAndValidateSection<ConnectionStringsOptions>(_configuration);  
+            
+            services.AddSingleton<IValidateOptions<DatabaseOptions>, DatabaseOptionsValidator>();
+            services.AddSingleton<IValidateOptions<ConnectionStringsOptions>, ConnectionStringsOptionsValidator>();
+            
             services.AddControllers();
         }
 
