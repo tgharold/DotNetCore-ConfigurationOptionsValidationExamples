@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 
 namespace Example3Api
 {
@@ -22,12 +21,9 @@ namespace Example3Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.ConfigureAndValidateSection<DatabaseOptions>(_configuration);
-            services.ConfigureAndValidateSection<ConnectionStringsOptions>(_configuration);  
-            
-            services.AddSingleton<IValidateOptions<DatabaseOptions>, DatabaseOptionsValidator>();
-            services.AddSingleton<IValidateOptions<ConnectionStringsOptions>, ConnectionStringsOptionsValidator>();
-            
+            services.ConfigureAndValidateSection<DatabaseOptions, DatabaseOptionsValidator>(_configuration);
+            services.ConfigureAndValidateSection<ConnectionStringsOptions, ConnectionStringsOptionsValidator>(_configuration);  
+          
             services.AddControllers();
         }
 

@@ -3,15 +3,18 @@ using System.Reflection;
 using Example3Api.Attributes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Example3Api.Extensions
 {
     public static class IServiceCollectionExtensions
     {
-        public static T ConfigureAndValidateSection<T>(
+        public static T ConfigureAndValidateSection<T, TValidator>(
             this IServiceCollection services,
             IConfiguration configuration
-            ) where T : class
+            ) 
+            where T : class
+            where TValidator : class, IValidateOptions<T>
         {
             var sectionName = typeof(T).GetCustomAttribute<ConfigurationSectionNameAttribute>()?.SectionName
                 ?? throw new ArgumentNullException(nameof(ConfigurationSectionNameAttribute));
@@ -20,15 +23,9 @@ namespace Example3Api.Extensions
 
             services.AddOptions<T>()
                 .Bind(configurationSection);
+            
+            services.AddSingleton<IValidateOptions<T>, TValidator>();
         
-                /* For the IValidateOptions approach, we don't wire up validation here.  Instead we just inject those
-                 * validators into the DI system in Startup.ConfigureServices():
-                 *
-                 *   services.AddSingleton<IValidateOptions<T>, TValidator>();
-                 *
-                 * It reduces the need for a marker/trait interface like was used in Example 2.
-                 */
-
             return configurationSection.Get<T>();
         }
 
