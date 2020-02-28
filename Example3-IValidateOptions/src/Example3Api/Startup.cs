@@ -22,7 +22,8 @@ namespace Example3Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureAndValidateSection<DatabaseOptions, DatabaseOptionsValidator>(_configuration);
-            services.ConfigureAndValidateSection<ConnectionStringsOptions, ConnectionStringsOptionsValidator>(_configuration);  
+            services.ConfigureAndValidateSection<ConnectionStringsOptions, ConnectionStringsOptionsValidator>(_configuration);
+            services.ConfigureSection<UnvalidatedOptions>(_configuration);
           
             services.AddControllers();
         }

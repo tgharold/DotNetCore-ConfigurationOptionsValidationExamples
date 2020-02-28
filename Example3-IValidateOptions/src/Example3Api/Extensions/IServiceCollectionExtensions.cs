@@ -29,5 +29,22 @@ namespace Example3Api.Extensions
             return configurationSection.Get<T>();
         }
 
+        public static T ConfigureSection<T>(
+            this IServiceCollection services,
+            IConfiguration configuration
+            ) 
+            where T : class
+        {
+            var sectionName = typeof(T).GetCustomAttribute<ConfigurationSectionNameAttribute>()?.SectionName
+                ?? throw new ArgumentNullException(nameof(ConfigurationSectionNameAttribute));
+            
+            var configurationSection = configuration.GetSection(sectionName);
+
+            services.AddOptions<T>()
+                .Bind(configurationSection);
+            
+            return configurationSection.Get<T>();
+        }
+
     }
 }

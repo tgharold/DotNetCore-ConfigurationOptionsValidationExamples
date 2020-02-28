@@ -20,14 +20,18 @@ namespace Example3Api.Controllers
         private readonly ILogger<WeatherForecastController> _logger;
 
         private readonly DatabaseOptions _databaseOptions;
-        
+        private UnvalidatedOptions _unvalidatedOptions;
+
         public WeatherForecastController(
             ILogger<WeatherForecastController> logger,
-            IOptionsSnapshot<DatabaseOptions> databaseOptionsAccessor
+            IOptionsSnapshot<DatabaseOptions> databaseOptionsAccessor,
+            IOptions<UnvalidatedOptions> unvalidatedOptionsAccessor
             )
         {
             _logger = logger;
 
+            _unvalidatedOptions = unvalidatedOptionsAccessor.Value;
+            
             /* if IOptions validation fails, code will error out here (first access)
              * example:
              *   - OptionsValidationException: Comment1 is required.; DatabaseType is required.; Comment2 is required.;
