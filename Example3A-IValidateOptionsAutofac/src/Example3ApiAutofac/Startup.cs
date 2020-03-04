@@ -1,3 +1,4 @@
+using Autofac;
 using Example3ApiAutofac.Extensions;
 using Example3ApiAutofac.Options;
 using Example3ApiAutofac.OptionsValidators;
@@ -26,6 +27,16 @@ namespace Example3ApiAutofac
             services.ConfigureSection<UnvalidatedOptions>(_configuration);
           
             services.AddControllers();
+        }
+        
+        // ConfigureContainer is where you can register things directly
+        // with Autofac. This runs after ConfigureServices so the things
+        // here will override registrations made in ConfigureServices.
+        // Don't build the container; that gets done for you by the factory.
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            // Register your own things directly with Autofac, like:
+            //builder.RegisterModule(new MyApplicationModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
