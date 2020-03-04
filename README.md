@@ -83,4 +83,5 @@ Uses the `IValidateOptions` interface on C# validation classes. See the `Databas
 
 - There is [discussion about an "eager" validation routine](https://github.com/dotnet/extensions/issues/459) in .NET Core, but it has not yet been added.
 - The [comment on StackOverflow by "poke"](https://stackoverflow.com/a/51693303) explains some of the trade-offs to consider when talking about configuration / options validation.
+- [Article about IOptions vs IOptionsSnapshot vs IOptionsMonitor by Andrew Lock](https://andrewlock.net/creating-singleton-named-options-with-ioptionsmonitor/) and why you'll probably end up using `IOptionsMonitor<T>`.
 
