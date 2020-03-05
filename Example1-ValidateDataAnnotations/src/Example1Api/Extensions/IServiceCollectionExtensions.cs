@@ -20,7 +20,7 @@ namespace Example1Api.Extensions
             
             services.AddOptions<T>()
                 .Bind(configurationSection)
-                .ValidateDataAnnotations()
+                .RecursivelyValidateDataAnnotations()
                 ;
             
             return configurationSection.Get<T>();
