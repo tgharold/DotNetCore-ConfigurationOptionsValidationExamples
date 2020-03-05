@@ -23,6 +23,8 @@ namespace Example3Api
         {
             services.ConfigureAndValidateSection<DatabaseOptions, DatabaseOptionsValidator>(_configuration);
             services.ConfigureAndValidateSection<ConnectionStringsOptions, ConnectionStringsOptionsValidator>(_configuration);
+            services.ConfigureAndValidateSection<MonitoredSettingsOptions, MonitoredSettingsOptionsValidator>(_configuration);
+            services.ConfigureAndValidateSection<UnmonitoredButValidatedOptions, UnmonitoredButValidatedOptionsValidator>(_configuration);
             services.ConfigureSection<UnvalidatedOptions>(_configuration);
           
             services.AddControllers();

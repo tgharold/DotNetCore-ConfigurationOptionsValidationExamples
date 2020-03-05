@@ -20,23 +20,38 @@ namespace Example3Api.Controllers
         private readonly ILogger<WeatherForecastController> _logger;
 
         private readonly DatabaseOptions _databaseOptions;
-        private UnvalidatedOptions _unvalidatedOptions;
+        private readonly UnvalidatedOptions _unvalidatedOptions;
+        private readonly MonitoredSettingsOptions _monitoredSettingsOptions;
+        private readonly UnmonitoredButValidatedOptions _unmonitoredButValidatedOptionsAccessor;
 
         public WeatherForecastController(
             ILogger<WeatherForecastController> logger,
             IOptionsSnapshot<DatabaseOptions> databaseOptionsAccessor,
-            IOptions<UnvalidatedOptions> unvalidatedOptionsAccessor
+            IOptions<UnvalidatedOptions> unvalidatedOptionsAccessor,
+            IOptionsMonitor<MonitoredSettingsOptions> monitoredSettingsOptionsAccessor,
+            IOptions<UnmonitoredButValidatedOptions> unmonitoredButValidatedOptionsAccessor
             )
         {
             _logger = logger;
 
-            _unvalidatedOptions = unvalidatedOptionsAccessor.Value;
-            
-            /* if IOptions validation fails, code will error out here (first access)
+            /* If options-pattern validation fails, code will error out here.  However, it will error out on the
+             * first object that fails to validate.  You could wrap a try-catch around all of the calls.
+             * 
              * example:
              *   - OptionsValidationException: Comment1 is required.; DatabaseType is required.; Comment2 is required.;
              *     SchemaNames.Schema1 is required.; SchemaNames.Schema2 is required.
              */
+            
+            // There's no validator for this one.
+            _unvalidatedOptions = unvalidatedOptionsAccessor.Value;
+            
+            // IOptions<T> is a singleton that only validates on the first-use (anywhere).
+            _unmonitoredButValidatedOptionsAccessor = unmonitoredButValidatedOptionsAccessor.Value;
+            
+            // IOptionsMonitor<T> only runs when the underlying file has actually changed (still a singleton).
+            _monitoredSettingsOptions = monitoredSettingsOptionsAccessor.CurrentValue;
+
+            // IOptionsSnapshot<T> runs validation on every new request.
             _databaseOptions = databaseOptionsAccessor.Value;
         }
 
