@@ -26,9 +26,9 @@ In all of the demonstrated .NET Core approaches, validation of the options objec
 - `IOptionsSnapshot<T>`: Validation happens on every new scope (usually every request).  
 - `IOptionsMonitor<T>`: Runs validation on the next access after the underlying settings have changed.
 
-For a discussion of which approach to use when injecting the options into a class, I recommend [Andrew Lock's article](https://andrewlock.net/creating-singleton-named-options-with-ioptionsmonitor/).  Keep in mind the object lifetimes for each approach and avoid captive dependencies (passing a scope object into the constructor of a singleton / long-lived object).
+For a discussion of which approach to use when injecting the options into a class, I recommend [Andrew Lock's article](https://andrewlock.net/creating-singleton-named-options-with-ioptionsmonitor/).  Keep in mind the object lifetimes for each approach and avoid captive dependencies (passing a scoped object like `IOptionsSnapshot<T>` into the constructor of a singleton / long-lived object).
 
-One approach to dealing with the lazy-evaluation of validation rules would be to add those `IOptions<T>` as parameters to the `Startup.Configure()` and then instantiate a copy of every options object.  This would give you a way to validate that anything in the `appsettings*.json` files (or environment variables) injected at startup are correct.
+One approach to dealing with the lazy-evaluation of validation rules would be to add those `IOptions<T>` as parameters to the `Startup.Configure()` and then instantiate a copy of every options object.  This would give you a way to validate that anything in the `appsettings*.json` files (or environment variables) injected at startup are correct.  I think, because of how some of the sample `ConfigureAndValidateSection()` methods work under the covers (returning the object instance), validation will run during `Startup.ConfigureServices()`.  But I need to verify that assertion.
 
 # Examples
 
