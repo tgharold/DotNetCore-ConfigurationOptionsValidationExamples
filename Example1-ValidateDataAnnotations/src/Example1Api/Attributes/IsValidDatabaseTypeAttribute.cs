@@ -8,7 +8,10 @@ namespace Example1Api.Attributes
     public class IsValidDatabaseTypeAttribute : ValidationAttribute
     {
         //TODO: Figure out why the error message displays without the member (property) name.
-        //   Example: DataAnnotation validation failed for members: '' with the error: 'Value is required.'.
+        /* This may be tricky as annotations can't get the field info for what they are attached to
+         * Example: DataAnnotation validation failed for members: '' with the error: 'Value is required.'.
+         * It may be the responsibility of the RecursiveDataAnnotationValidator class to get a good name.
+         */
         
         public IsValidDatabaseTypeAttribute(
             bool allowNull = false

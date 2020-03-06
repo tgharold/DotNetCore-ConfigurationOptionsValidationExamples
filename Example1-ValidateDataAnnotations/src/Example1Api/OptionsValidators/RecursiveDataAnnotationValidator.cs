@@ -94,13 +94,22 @@ namespace Example1Api.OptionsValidators
                         {
                             if (enumObj == null) continue;
                             nestedResults = new List<ValidationResult>();
-                            if (!TryValidateObjectRecursive(enumObj, nestedResults, validatedObjects, validationContextItems))
+                            if (!TryValidateObjectRecursive(
+                                enumObj, 
+                                nestedResults, 
+                                validatedObjects, 
+                                validationContextItems
+                                ))
                             {
                                 result = false;
                                 foreach (var validationResult in nestedResults)
                                 {
                                     var property1 = property;
-                                    validationResults.Add(new ValidationResult(validationResult.ErrorMessage, validationResult.MemberNames.Select(x => property1.Name + '.' + x)));
+                                    validationResults.Add(
+                                        new ValidationResult(
+                                            validationResult.ErrorMessage, 
+                                            validationResult.MemberNames.Select(x => property1.Name + '.' + x)
+                                            ));
                                 }
                             }
                         }
@@ -108,13 +117,22 @@ namespace Example1Api.OptionsValidators
                         break;
                     default:
                         nestedResults = new List<ValidationResult>();
-                        if (!TryValidateObjectRecursive(value, nestedResults, validatedObjects, validationContextItems))
+                        if (!TryValidateObjectRecursive(
+                            value, 
+                            nestedResults, 
+                            validatedObjects, 
+                            validationContextItems
+                            ))
                         {
                             result = false;
                             foreach (var validationResult in nestedResults)
                             {
                                 var property1 = property;
-                                validationResults.Add(new ValidationResult(validationResult.ErrorMessage, validationResult.MemberNames.Select(x => property1.Name + '.' + x)));
+                                validationResults.Add(
+                                    new ValidationResult(
+                                        validationResult.ErrorMessage, 
+                                        validationResult.MemberNames.Select(x => property1.Name + '.' + x)
+                                        ));
                             }
                         }
                         break;

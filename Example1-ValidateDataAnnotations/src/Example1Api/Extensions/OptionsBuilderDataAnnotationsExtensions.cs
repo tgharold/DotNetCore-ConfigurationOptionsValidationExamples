@@ -11,7 +11,8 @@ namespace Example1Api.Extensions
             ) where TOptions : class
         {
             optionsBuilder.Services.AddSingleton<IValidateOptions<TOptions>>(
-                new RecursiveDataAnnotationValidateOptions<TOptions>(optionsBuilder.Name
+                new RecursiveDataAnnotationValidateOptions<TOptions>(
+                    optionsBuilder.Name
                 ));
             return optionsBuilder;
         }
