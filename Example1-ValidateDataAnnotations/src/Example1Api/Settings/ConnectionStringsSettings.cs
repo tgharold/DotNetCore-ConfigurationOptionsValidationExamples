@@ -8,5 +8,8 @@ namespace Example1Api.Settings
     {
         [Required]
         public string Connection1 { get; set; }
+        
+        [Required]
+        public string Connection2 { get; set; }
     }
 }
