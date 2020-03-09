@@ -42,8 +42,13 @@ namespace Example1Api.Extensions
             services.AddOptions<T>()
                 .Bind(configurationSection)
                 .RecursivelyValidateDataAnnotations();
-            
-            settings = Options.Create(configurationSection.Get<T>());
+
+            // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-3.1#use-di-services-to-configure-options
+            // https://stackoverflow.com/questions/59097503/access-dependency-injection-objects-during-startup-configureservices-method
+            // https://andrewlock.net/access-services-inside-options-and-startup-using-configureoptions/
+
+            //TODO: Figure out how to eagerly validate and return options
+            settings = null;
             
             return services;
         }
