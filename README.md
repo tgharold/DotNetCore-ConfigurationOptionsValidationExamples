@@ -53,7 +53,7 @@ Note: [Commit b1dac68](https://github.com/tgharold/DotNetCore-ConfigurationOptio
 
 Uses the `.Validate()` method and custom validation methods on the C# classes.  Note that use of a marker/trait interface is not required, but it made it easier for me to call the validation method from within a generic method.  The use of a generic method makes it difficult to construct a detailed error message.
 
-If I wasn't using a generic method (ConfigureAndValidateSection), it would be possible to separately validate each property of the Options object.  This would allow per-property validation messages.  An example of this can be seen in the [older aspnet/Options Github repository](https://github.com/aspnet/Options/blob/95495473d26eb30bbd079f20a04b15c9464c49d9/test/Microsoft.Extensions.Options.Test/OptionsBuilderTest.cs#L293-L295).
+If I wasn't using a generic method (`AddValidatedSettings`), it would be possible to separately validate each property of the Options object.  This would allow per-property validation messages.  An example of this can be seen in the [old Aspnet/Options Github repository](https://github.com/aspnet/Options/blob/95495473d26eb30bbd079f20a04b15c9464c49d9/test/Microsoft.Extensions.Options.Test/OptionsBuilderTest.cs#L293-L295).
 
     .Validate(o => o.Boolean)
     .Validate(Options.DefaultName, o => o.Virtual == null, "Virtual")
@@ -69,7 +69,7 @@ I'm not a fan of this approach.
 
 Uses the `IValidateOptions` interface on C# validation classes. See the `DatabaseOptionsValidator` class for an example validator.  This was a really easy to implement approach.
 
-What we found in practice is that doing validation like this is tedious and error-prone, but powerful.  Using DataAnnotation validation worked out better for us.
+What we found in practice is that doing validation like this is tedious and error-prone, but powerful.  This approach could live along side the DataAnnotations appraoch in Example 1.
 
 ### Pros/Cons
 
