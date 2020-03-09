@@ -1,11 +1,10 @@
-using System;
 using Example2Api.Attributes;
 using Example2Api.Interfaces;
 
 namespace Example2Api.Options
 {
-    [ConfigurationSectionName("ConnectionStrings")]
-    public class ConnectionStringsOptions : ICanValidate
+    [SettingsSectionName("ConnectionStrings")]
+    public class ConnectionStringsSettings : ICanValidate
     {
         public string Connection1 { get; set; }
         

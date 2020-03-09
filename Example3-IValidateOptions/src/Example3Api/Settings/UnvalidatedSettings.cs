@@ -2,7 +2,7 @@ using Example3Api.Attributes;
 
 namespace Example3Api.Settings
 {
-    [ConfigurationSectionName("Unvalidated")]
+    [SettingsSectionName("Unvalidated")]
     public class UnvalidatedSettings
     {
         public string ParameterA { get; set; }

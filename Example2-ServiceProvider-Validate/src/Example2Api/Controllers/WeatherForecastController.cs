@@ -19,11 +19,11 @@ namespace Example2Api.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        private readonly DatabaseOptions _databaseOptions;
+        private readonly DatabaseSettings _databaseSettings;
         
         public WeatherForecastController(
             ILogger<WeatherForecastController> logger,
-            IOptionsSnapshot<DatabaseOptions> databaseOptionsAccessor
+            IOptionsSnapshot<DatabaseSettings> databaseSettingsAccessor
             )
         {
             _logger = logger;
@@ -33,7 +33,7 @@ namespace Example2Api.Controllers
              *   - OptionsValidationException: A validation error has occured.
              *   - OptionsValidationException: custom error
              */
-            _databaseOptions = databaseOptionsAccessor.Value;
+            _databaseSettings = databaseSettingsAccessor.Value;
         }
 
         [HttpGet]

@@ -22,7 +22,7 @@ namespace Example3Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddValidatedSettings<ConnectionStringsSettings, ConnectionStringsSettingsValidator>(_configuration)
+                .AddValidatedSettings<ConnectionStringsSettings, ConnectionStringsSettingsValidator>(_configuration, out var connAccessor)
                 .AddValidatedSettings<DatabaseSettings, DatabaseSettingsValidator>(_configuration)
                 .AddValidatedSettings<MonitoredSettings, MonitoredSettingsValidator>(_configuration)
                 .AddValidatedSettings<UnmonitoredButValidatedSettings, UnmonitoredButValidatedSettingsValidator>(_configuration)

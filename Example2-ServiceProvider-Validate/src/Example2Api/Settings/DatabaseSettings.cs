@@ -3,8 +3,8 @@ using Example2Api.Interfaces;
 
 namespace Example2Api.Options
 {
-    [ConfigurationSectionName("Database")]
-    public class DatabaseOptions : ICanValidate
+    [SettingsSectionName("Database")]
+    public class DatabaseSettings : ICanValidate
     {
         public DatabaseSchemaNames SchemaNames { get; set; } = new DatabaseSchemaNames();
         

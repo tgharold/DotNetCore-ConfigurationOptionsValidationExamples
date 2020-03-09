@@ -2,7 +2,7 @@ using Example3Api.Attributes;
 
 namespace Example3Api.Settings
 {
-    [ConfigurationSectionName("Database")]
+    [SettingsSectionName("Database")]
     public class DatabaseSettings
     {
         public DatabaseSchemaNames SchemaNames { get; set; } = new DatabaseSchemaNames();

@@ -15,8 +15,8 @@ namespace Example3Api.Settings.Validators
             DatabaseSettings settings
             )
         {
-            var sectionName = typeof(DatabaseSettings).GetCustomAttribute<ConfigurationSectionNameAttribute>()?.SectionName
-                ?? throw new ArgumentNullException(nameof(ConfigurationSectionNameAttribute));            
+            var sectionName = typeof(DatabaseSettings).GetCustomAttribute<SettingsSectionNameAttribute>()?.SectionName
+                ?? throw new ArgumentNullException(nameof(SettingsSectionNameAttribute));            
             
             if (settings is null)
                 return ValidateOptionsResult.Fail($"Configuration object is null for section '{sectionName}'.");

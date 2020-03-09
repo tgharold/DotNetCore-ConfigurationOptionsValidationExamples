@@ -1,11 +1,11 @@
 using System;
 
-namespace Example3ApiAutofac.Attributes
+namespace Example2Api.Attributes
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class ConfigurationSectionNameAttribute : Attribute
+    public class SettingsSectionNameAttribute : Attribute
     {
-        public ConfigurationSectionNameAttribute(string sectionName)
+        public SettingsSectionNameAttribute(string sectionName)
         {
             SectionName = sectionName;
         }

@@ -21,12 +21,15 @@ namespace Example1Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddValidatedSettings<ConnectionStringsSettings>(_configuration)
+                .AddValidatedSettings<ConnectionStringsSettings>(_configuration, out var connAccessor)
                 .AddValidatedSettings<DatabaseSettings>(_configuration)
                 .AddValidatedSettings<MonitoredSettings>(_configuration)
                 .AddValidatedSettings<UnmonitoredButValidatedSettings>(_configuration)
                 .AddSettings<UnvalidatedSettings>(_configuration)
                 ;
+            
+            // Access the connection strings, this will trigger validation
+            var connectionStrings = connAccessor.Value;
 
             services.AddControllers();
         }

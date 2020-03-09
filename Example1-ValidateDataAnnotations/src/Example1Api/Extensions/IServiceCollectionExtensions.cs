@@ -27,13 +27,13 @@ namespace Example1Api.Extensions
         }
 
         /// <summary>Bind a section of the appsettings.json to a POCO along with wiring up
-        /// recursively-validated DataAnnotation validation. This variant also returns the
+        /// recursively-validated DataAnnotation validation. This variant also outputs the
         /// section as an IOptions<T> object.</summary>
         public static IServiceCollection AddValidatedSettings<T>(
             this IServiceCollection services,
             IConfiguration configuration,
             out IOptions<T> settings
-        ) where T : class, new()
+            ) where T : class, new()
         {
             var sectionName = GetSettingsSectionName<T>();
             

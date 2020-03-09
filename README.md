@@ -28,19 +28,19 @@ In all of the demonstrated .NET Core approaches, validation of the options objec
 
 For a discussion of which approach to use when injecting the options into a class, I recommend [Andrew Lock's article](https://andrewlock.net/creating-singleton-named-options-with-ioptionsmonitor/).  Keep in mind the object lifetimes for each approach and avoid captive dependencies (passing a scoped object like `IOptionsSnapshot<T>` into the constructor of a singleton / long-lived object).
 
-One approach to dealing with the lazy-evaluation of validation rules would be to add those `IOptions<T>` as parameters to the `Startup.Configure()` and then instantiate a copy of every options object.  This would give you a way to validate that anything in the `appsettings*.json` files (or environment variables) injected at startup are correct.  I think, because of how some of the sample `ConfigureAndValidateSection()` methods work under the covers (returning the object instance), validation will run during `Startup.ConfigureServices()`.  But I need to verify that assertion.
+One approach to dealing with the lazy-evaluation of validation rules would be to add those `IOptions<T>` as parameters to the `Startup.Configure()` and then instantiate a copy of every options object.  This would give you a way to validate that anything in the `appsettings*.json` files (or environment variables) injected at startup are correct. 
 
 # Examples
 
-The main differences between the approaches to validation takes place in the `ConfigureAndValidateSection<T>()` method in the `IServiceCollectionExtensions` class.
+The main differences between the approaches to validation takes place in the `AddValidatedSettings<T>()` or `AddSettings<T>()` methods in the `IServiceCollectionExtensions` class.
 
-Because the `DatabaseOptions` (and other) objects are passed into the `WeatherForecastController` constructor, simply running the project after editing the "`Database`" section of `appsettings.json` will let you experiment.  
+Because the `DatabaseOptions` and other objects are passed into the `WeatherForecastController` constructor, simply running the project after editing `appsettings.json` file will let you experiment.  
 
 ## Example 1: ValidateDataAnnotations()
 
-Uses the [Microsoft Data Annotations](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=netcore-3.1) approach of attribute-based validation on the C# model that represents the section in the configuration.
+Uses the [Microsoft Data Annotations](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=netcore-3.1) approach of attribute-based validation on the C# model that represents the section in the configuration.  This is the approach that I'd recommend for most use-cases as configuration validation is generally simple.
 
-Note: [Commit b1dac68](https://github.com/tgharold/DotNetCore-ConfigurationOptionsValidationExamples/commit/b1dac68d94d63268b4f5e163372ad44afe88f92a) added support for recursively validating DataAnnotation attributes.
+Note: [Commit b1dac68](https://github.com/tgharold/DotNetCore-ConfigurationOptionsValidationExamples/commit/b1dac68d94d63268b4f5e163372ad44afe88f92a) added support for recursively validating DataAnnotation attributes.  The classes may have moved around in later commits, but the basic code remains the same.
 
 ### Pros/Cons
 
@@ -59,6 +59,8 @@ If I wasn't using a generic method (ConfigureAndValidateSection), it would be po
     .Validate(Options.DefaultName, o => o.Virtual == null, "Virtual")
     .Validate(o => o.Integer > 12, "Integer");
 
+I'm not a fan of this approach.
+
 ### Pros/Cons
 
 - Con: It is harder to structure a useful message / object back to the caller.
@@ -68,8 +70,6 @@ If I wasn't using a generic method (ConfigureAndValidateSection), it would be po
 Uses the `IValidateOptions` interface on C# validation classes. See the `DatabaseOptionsValidator` class for an example validator.  This was a really easy to implement approach.
 
 What we found in practice is that doing validation like this is tedious and error-prone, but powerful.  Using DataAnnotation validation worked out better for us.
-
-Note: Example 3A uses Autofac.  Because I'm not doing anything complicated in the project, it looks just like the standard DI implementation.
 
 ### Pros/Cons
 

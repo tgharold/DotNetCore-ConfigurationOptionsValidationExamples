@@ -14,8 +14,8 @@ namespace Example3Api.Settings.Validators
             MonitoredSettings settings
             )
         {
-            var sectionName = typeof(MonitoredSettings).GetCustomAttribute<ConfigurationSectionNameAttribute>()?.SectionName
-                ?? throw new ArgumentNullException(nameof(ConfigurationSectionNameAttribute));  
+            var sectionName = typeof(MonitoredSettings).GetCustomAttribute<SettingsSectionNameAttribute>()?.SectionName
+                ?? throw new ArgumentNullException(nameof(SettingsSectionNameAttribute));  
             
             if (settings is null)
                 return ValidateOptionsResult.Fail($"Configuration object is null for section '{sectionName}'.");

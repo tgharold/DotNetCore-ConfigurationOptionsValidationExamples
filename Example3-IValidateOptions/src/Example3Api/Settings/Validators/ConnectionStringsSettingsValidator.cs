@@ -14,8 +14,8 @@ namespace Example3Api.Settings.Validators
             ConnectionStringsSettings settings
             )
         {
-            var sectionName = typeof(ConnectionStringsSettings).GetCustomAttribute<ConfigurationSectionNameAttribute>()?.SectionName
-                ?? throw new ArgumentNullException(nameof(ConfigurationSectionNameAttribute));  
+            var sectionName = typeof(ConnectionStringsSettings).GetCustomAttribute<SettingsSectionNameAttribute>()?.SectionName
+                ?? throw new ArgumentNullException(nameof(SettingsSectionNameAttribute));  
             
             if (settings is null)
                 return ValidateOptionsResult.Fail($"Configuration object is null for section '{sectionName}'.");
