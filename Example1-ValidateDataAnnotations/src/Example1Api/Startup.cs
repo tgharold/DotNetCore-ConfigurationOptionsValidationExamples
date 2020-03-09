@@ -30,11 +30,13 @@ namespace Example1Api
                 .AddSettings<UnvalidatedSettings>(_configuration)
                 ;
 
-            services.AddSingleton<WeatherForecastService>(ctx =>
+            services.AddSingleton<WeatherForecastService>();
+            
+            /*services.AddSingleton<WeatherForecastService>(ctx =>
             {
                 var identitySettings = ctx.GetRequiredService<IOptions<ConnectionStringsSettings>>();
                 return new WeatherForecastService(identitySettings);
-            });
+            });*/
 
             services.AddControllers();
         }
