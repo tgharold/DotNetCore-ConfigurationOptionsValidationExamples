@@ -1,10 +1,12 @@
 using Example1Api.Extensions;
+using Example1Api.Services;
 using Example1Api.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace Example1Api
 {
@@ -21,15 +23,18 @@ namespace Example1Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddValidatedSettings<ConnectionStringsSettings>(_configuration, out var connAccessor)
+                .AddValidatedSettings<ConnectionStringsSettings>(_configuration)
                 .AddValidatedSettings<DatabaseSettings>(_configuration)
                 .AddValidatedSettings<MonitoredSettings>(_configuration)
                 .AddValidatedSettings<UnmonitoredButValidatedSettings>(_configuration)
                 .AddSettings<UnvalidatedSettings>(_configuration)
                 ;
-            
-            // Access the connection strings, this will trigger validation
-            var connectionStrings = connAccessor.Value;
+
+            services.AddSingleton<WeatherForecastService>(ctx =>
+            {
+                var identitySettings = ctx.GetRequiredService<IOptions<ConnectionStringsSettings>>();
+                return new WeatherForecastService(identitySettings);
+            });
 
             services.AddControllers();
         }

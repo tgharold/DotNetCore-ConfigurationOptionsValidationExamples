@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using Example1Api.Models;
+using Example1Api.Services;
 using Example1Api.Settings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,12 +13,10 @@ namespace Example1Api.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly WeatherForecastService _weatherForecastService;
 
         private readonly DatabaseSettings _databaseSettings;
         private readonly UnvalidatedSettings _unvalidatedSettings;
@@ -29,11 +28,13 @@ namespace Example1Api.Controllers
             IOptionsSnapshot<DatabaseSettings> databaseSettingsAccessor,
             IOptions<UnvalidatedSettings> unvalidatedSettingsAccessor,
             IOptionsMonitor<MonitoredSettings> monitoredSettingsAccessor,
-            IOptions<UnmonitoredButValidatedSettings> unmonitoredButValidatedSettingsAccessor
+            IOptions<UnmonitoredButValidatedSettings> unmonitoredButValidatedSettingsAccessor,
+            WeatherForecastService weatherForecastService
             )
         {
             _logger = logger;
-            
+            _weatherForecastService = weatherForecastService;
+
             /* If options-pattern validation fails, code will error out here.  However, it will error out on the
              * first object that fails to validate.  You could wrap a try-catch around all of the calls.
              * 
@@ -58,14 +59,13 @@ namespace Example1Api.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            Debug.WriteLine($"Unvalidated Parameter A: '{_unvalidatedSettings.ParameterA}'.");
+            Debug.WriteLine($"Unmonitored but Validated Option A: '{_unmonitoredButValidatedSettings.OptionA}'.");
+            Debug.WriteLine($"Monitored A: '{_monitoredSettings.MonitorA}'.");
+            Debug.WriteLine($"Database Type: '{_databaseSettings.DatabaseType}'.");
+            Debug.WriteLine($"Database Schema 1: '{_databaseSettings.SchemaNames.Schema1}'.");
+            
+            return _weatherForecastService.GetForecast();
         }
     }
 }
