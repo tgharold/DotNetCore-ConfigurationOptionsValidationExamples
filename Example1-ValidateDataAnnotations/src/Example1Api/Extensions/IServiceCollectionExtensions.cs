@@ -12,7 +12,7 @@ namespace Example1Api.Extensions
         public static IServiceCollection AddValidatedSettings<T>(
             this IServiceCollection services,
             IConfiguration configuration
-            ) where T : class, new()
+            ) where T : class
         {
             var sectionName = GetSettingsSectionName<T>();
             
@@ -29,7 +29,7 @@ namespace Example1Api.Extensions
         public static IServiceCollection AddSettings<T>(
             this IServiceCollection services,
             IConfiguration configuration
-            ) where T : class, new()
+            ) where T : class
         {
             var sectionName = GetSettingsSectionName<T>();
             
