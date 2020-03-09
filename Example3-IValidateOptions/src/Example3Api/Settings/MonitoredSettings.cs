@@ -1,9 +1,8 @@
 using Example3Api.Attributes;
 
-namespace Example3Api.Options
+namespace Example3Api.Settings
 {
-    [ConfigurationSectionName("MonitoredSettings")]
-    public class MonitoredSettingsOptions
+    public class MonitoredSettings
     {
         public string MonitorA { get; set; }
         public string MonitorB { get; set; }

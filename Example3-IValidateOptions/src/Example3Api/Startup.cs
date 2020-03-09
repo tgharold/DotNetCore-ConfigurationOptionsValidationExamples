@@ -1,6 +1,6 @@
 using Example3Api.Extensions;
-using Example3Api.Options;
-using Example3Api.OptionsValidators;
+using Example3Api.Settings;
+using Example3Api.Settings.Validators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,11 +21,13 @@ namespace Example3Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.ConfigureAndValidateSection<DatabaseOptions, DatabaseOptionsValidator>(_configuration);
-            services.ConfigureAndValidateSection<ConnectionStringsOptions, ConnectionStringsOptionsValidator>(_configuration);
-            services.ConfigureAndValidateSection<MonitoredSettingsOptions, MonitoredSettingsOptionsValidator>(_configuration);
-            services.ConfigureAndValidateSection<UnmonitoredButValidatedOptions, UnmonitoredButValidatedOptionsValidator>(_configuration);
-            services.ConfigureSection<UnvalidatedOptions>(_configuration);
+            services
+                .AddValidatedSettings<ConnectionStringsSettings, ConnectionStringsSettingsValidator>(_configuration)
+                .AddValidatedSettings<DatabaseSettings, DatabaseSettingsValidator>(_configuration)
+                .AddValidatedSettings<MonitoredSettings, MonitoredSettingsValidator>(_configuration)
+                .AddValidatedSettings<UnmonitoredButValidatedSettings, UnmonitoredButValidatedSettingsValidator>(_configuration)
+                .AddSettings<UnvalidatedSettings>(_configuration)
+                ;
           
             services.AddControllers();
         }

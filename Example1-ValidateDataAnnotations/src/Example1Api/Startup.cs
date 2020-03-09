@@ -23,7 +23,7 @@ namespace Example1Api
             services
                 .AddValidatedSettings<ConnectionStringsSettings>(_configuration)
                 .AddValidatedSettings<DatabaseSettings>(_configuration)
-                .AddValidatedSettings<MonitoredSettingsSettings>(_configuration)
+                .AddValidatedSettings<MonitoredSettings>(_configuration)
                 .AddValidatedSettings<UnmonitoredButValidatedSettings>(_configuration)
                 .AddSettings<UnvalidatedSettings>(_configuration)
                 ;

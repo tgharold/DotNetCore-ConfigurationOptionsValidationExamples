@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Example3Api.Options;
+using Example3Api.Settings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -19,17 +19,17 @@ namespace Example3Api.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        private readonly DatabaseOptions _databaseOptions;
-        private readonly UnvalidatedOptions _unvalidatedOptions;
-        private readonly MonitoredSettingsOptions _monitoredSettingsOptions;
-        private readonly UnmonitoredButValidatedOptions _unmonitoredButValidatedOptionsAccessor;
+        private readonly DatabaseSettings _databaseSettings;
+        private readonly UnvalidatedSettings _unvalidatedSettings;
+        private readonly MonitoredSettings _monitoredSettings;
+        private readonly UnmonitoredButValidatedSettings _unmonitoredButValidatedSettings;
 
         public WeatherForecastController(
             ILogger<WeatherForecastController> logger,
-            IOptionsSnapshot<DatabaseOptions> databaseOptionsAccessor,
-            IOptions<UnvalidatedOptions> unvalidatedOptionsAccessor,
-            IOptionsMonitor<MonitoredSettingsOptions> monitoredSettingsOptionsAccessor,
-            IOptions<UnmonitoredButValidatedOptions> unmonitoredButValidatedOptionsAccessor
+            IOptionsSnapshot<DatabaseSettings> databaseSettingsAccessor,
+            IOptions<UnvalidatedSettings> unvalidatedSettingsAccessor,
+            IOptionsMonitor<MonitoredSettings> monitoredSettingsAccessor,
+            IOptions<UnmonitoredButValidatedSettings> unmonitoredButValidatedAccessor
             )
         {
             _logger = logger;
@@ -43,16 +43,16 @@ namespace Example3Api.Controllers
              */
             
             // There's no validator for this one.
-            _unvalidatedOptions = unvalidatedOptionsAccessor.Value;
+            _unvalidatedSettings = unvalidatedSettingsAccessor.Value;
             
             // IOptions<T> is a singleton that only validates on the first-use (anywhere).
-            _unmonitoredButValidatedOptionsAccessor = unmonitoredButValidatedOptionsAccessor.Value;
+            _unmonitoredButValidatedSettings = unmonitoredButValidatedAccessor.Value;
             
             // IOptionsMonitor<T> only runs when the underlying file has actually changed (still a singleton).
-            _monitoredSettingsOptions = monitoredSettingsOptionsAccessor.CurrentValue;
+            _monitoredSettings = monitoredSettingsAccessor.CurrentValue;
 
             // IOptionsSnapshot<T> runs validation on every new request.
-            _databaseOptions = databaseOptionsAccessor.Value;
+            _databaseSettings = databaseSettingsAccessor.Value;
         }
 
         [HttpGet]

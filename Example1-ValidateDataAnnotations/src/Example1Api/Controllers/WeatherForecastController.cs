@@ -21,37 +21,38 @@ namespace Example1Api.Controllers
 
         private readonly DatabaseSettings _databaseSettings;
         private readonly UnvalidatedSettings _unvalidatedSettings;
-        private readonly MonitoredSettingsSettings _monitoredSettingsSettings;
+        private readonly MonitoredSettings _monitoredSettings;
         private readonly UnmonitoredButValidatedSettings _unmonitoredButValidatedSettings;
 
         public WeatherForecastController(
             ILogger<WeatherForecastController> logger,
             IOptionsSnapshot<DatabaseSettings> databaseSettingsAccessor,
             IOptions<UnvalidatedSettings> unvalidatedSettingsAccessor,
-            IOptionsMonitor<MonitoredSettingsSettings> monitoredSettingsSettingsAccessor,
+            IOptionsMonitor<MonitoredSettings> monitoredSettingsAccessor,
             IOptions<UnmonitoredButValidatedSettings> unmonitoredButValidatedSettingsAccessor
             )
         {
             _logger = logger;
             
-            /* if IOptions validation fails, code will error out here (first access)
+            /* If options-pattern validation fails, code will error out here.  However, it will error out on the
+             * first object that fails to validate.  You could wrap a try-catch around all of the calls.
+             * 
              * example:
-             *   DataAnnotation validation failed for members: 'DatabaseType' with the
-             *   error: 'The DatabaseType field is required.'.
+             *   - OptionsValidationException: Comment1 is required.; DatabaseType is required.; Comment2 is required.;
+             *     SchemaNames.Schema1 is required.; SchemaNames.Schema2 is required.
              */
-
             
-            // IOptionsSnapshot<T> will revalidate on every request
-            _databaseSettings = databaseSettingsAccessor.Value;
-            
-            // No validation for this
+            // There's no validator for this one.
             _unvalidatedSettings = unvalidatedSettingsAccessor.Value;
-
-            // Validation will occur once on first access, then again every on each change of the configuration
-            _monitoredSettingsSettings = monitoredSettingsSettingsAccessor.CurrentValue;
             
-            // Validation will occur once on first access
+            // IOptions<T> is a singleton that only validates on the first-use (anywhere).
             _unmonitoredButValidatedSettings = unmonitoredButValidatedSettingsAccessor.Value;
+            
+            // IOptionsMonitor<T> only runs when the underlying file has actually changed (still a singleton).
+            _monitoredSettings = monitoredSettingsAccessor.CurrentValue;
+
+            // IOptionsSnapshot<T> runs validation on every new request.
+            _databaseSettings = databaseSettingsAccessor.Value;
         }
 
         [HttpGet]

@@ -1,9 +1,9 @@
 using Example3Api.Attributes;
 
-namespace Example3Api.Options
+namespace Example3Api.Settings
 {
     [ConfigurationSectionName("UnmonitoredButValidated")]
-    public class UnmonitoredButValidatedOptions
+    public class UnmonitoredButValidatedSettings
     {
         public string OptionA { get; set; }
         public string OptionB { get; set; }

@@ -8,7 +8,9 @@ namespace Example3Api.Extensions
 {
     public static class IServiceCollectionExtensions
     {
-        public static T ConfigureAndValidateSection<T, TValidator>(
+        /// <summary>Bind a section of the appsettings.json to a POCO along with wiring up
+        /// IValidateOptions<T> validation.</summary>
+        public static IServiceCollection AddValidatedSettings<T, TValidator>(
             this IServiceCollection services,
             IConfiguration configuration
             )
@@ -24,10 +26,11 @@ namespace Example3Api.Extensions
 
             services.AddSingleton<IValidateOptions<T>, TValidator>();
 
-            return configurationSection.Get<T>();
+            return services;
         }
 
-        public static T ConfigureSection<T>(
+        /// <summary>Bind a section of the appsettings.json to a POCO without validation.</summary>
+        public static IServiceCollection AddSettings<T>(
             this IServiceCollection services,
             IConfiguration configuration
             )
@@ -40,7 +43,7 @@ namespace Example3Api.Extensions
             services.AddOptions<T>()
                 .Bind(configurationSection);
 
-            return configurationSection.Get<T>();
+            return services;
         }
 
         private static string GetSectionName<T>()
