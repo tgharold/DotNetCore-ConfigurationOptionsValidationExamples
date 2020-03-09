@@ -20,10 +20,16 @@ namespace Example1Api.Controllers
         private readonly ILogger<WeatherForecastController> _logger;
 
         private readonly DatabaseSettings _databaseSettings;
+        private readonly UnvalidatedSettings _unvalidatedSettings;
+        private readonly MonitoredSettingsSettings _monitoredSettingsSettings;
+        private readonly UnmonitoredButValidatedSettings _unmonitoredButValidatedSettings;
 
         public WeatherForecastController(
             ILogger<WeatherForecastController> logger,
-            IOptionsSnapshot<DatabaseSettings> databaseOptionsAccessor
+            IOptionsSnapshot<DatabaseSettings> databaseSettingsAccessor,
+            IOptions<UnvalidatedSettings> unvalidatedSettingsAccessor,
+            IOptionsMonitor<MonitoredSettingsSettings> monitoredSettingsSettingsAccessor,
+            IOptions<UnmonitoredButValidatedSettings> unmonitoredButValidatedSettingsAccessor
             )
         {
             _logger = logger;
@@ -33,7 +39,19 @@ namespace Example1Api.Controllers
              *   DataAnnotation validation failed for members: 'DatabaseType' with the
              *   error: 'The DatabaseType field is required.'.
              */
-            _databaseSettings = databaseOptionsAccessor.Value;
+
+            
+            // IOptionsSnapshot<T> will revalidate on every request
+            _databaseSettings = databaseSettingsAccessor.Value;
+            
+            // No validation for this
+            _unvalidatedSettings = unvalidatedSettingsAccessor.Value;
+
+            // Validation will occur once on first access, then again every on each change of the configuration
+            _monitoredSettingsSettings = monitoredSettingsSettingsAccessor.CurrentValue;
+            
+            // Validation will occur once on first access
+            _unmonitoredButValidatedSettings = unmonitoredButValidatedSettingsAccessor.Value;
         }
 
         [HttpGet]
