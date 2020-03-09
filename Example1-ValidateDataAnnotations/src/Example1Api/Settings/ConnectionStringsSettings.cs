@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using Example1Api.Attributes;
 
-namespace Example1Api.Options
+namespace Example1Api.Settings
 {
-    [ConfigurationSectionName("ConnectionStrings")]
-    public class ConnectionStringsOptions
+    [SettingsSectionName("ConnectionStrings")]
+    public class ConnectionStringsSettings
     {
         [Required]
         public string Connection1 { get; set; }

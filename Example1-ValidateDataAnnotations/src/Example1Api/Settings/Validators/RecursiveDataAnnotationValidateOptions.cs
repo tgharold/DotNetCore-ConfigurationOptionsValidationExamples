@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.Extensions.Options;
 
-namespace Example1Api.OptionsValidators
+namespace Example1Api.Settings.Validators
 {
     public class RecursiveDataAnnotationValidateOptions<TOptions> 
         : IValidateOptions<TOptions>

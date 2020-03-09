@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Example1Api.Options;
+using Example1Api.Settings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -19,11 +19,11 @@ namespace Example1Api.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        private readonly DatabaseOptions _databaseOptions;
+        private readonly DatabaseSettings _databaseSettings;
 
         public WeatherForecastController(
             ILogger<WeatherForecastController> logger,
-            IOptionsSnapshot<DatabaseOptions> databaseOptionsAccessor
+            IOptionsSnapshot<DatabaseSettings> databaseOptionsAccessor
             )
         {
             _logger = logger;
@@ -33,7 +33,7 @@ namespace Example1Api.Controllers
              *   DataAnnotation validation failed for members: 'DatabaseType' with the
              *   error: 'The DatabaseType field is required.'.
              */
-            _databaseOptions = databaseOptionsAccessor.Value;
+            _databaseSettings = databaseOptionsAccessor.Value;
         }
 
         [HttpGet]

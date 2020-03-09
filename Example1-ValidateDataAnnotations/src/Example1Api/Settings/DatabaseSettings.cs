@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using Example1Api.Attributes;
 
-namespace Example1Api.Options
+namespace Example1Api.Settings
 {
-    [ConfigurationSectionName("Database")]
-    public class DatabaseOptions
+    [SettingsSectionName("Database")]
+    public class DatabaseSettings
     {
         public DatabaseSchemaNames SchemaNames { get; set; } = new DatabaseSchemaNames();
         

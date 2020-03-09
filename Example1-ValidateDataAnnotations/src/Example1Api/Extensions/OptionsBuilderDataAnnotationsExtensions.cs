@@ -1,4 +1,4 @@
-using Example1Api.OptionsValidators;
+using Example1Api.Settings.Validators;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 

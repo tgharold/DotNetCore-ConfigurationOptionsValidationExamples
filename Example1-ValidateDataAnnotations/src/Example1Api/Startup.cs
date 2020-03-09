@@ -1,5 +1,5 @@
 using Example1Api.Extensions;
-using Example1Api.Options;
+using Example1Api.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,8 +20,10 @@ namespace Example1Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.ConfigureAndValidateSection<DatabaseOptions>(_configuration);
-            services.ConfigureAndValidateSection<ConnectionStringsOptions>(_configuration);
+            services
+                .AddValidatedSettings<DatabaseSettings>(_configuration)
+                .AddValidatedSettings<ConnectionStringsSettings>(_configuration);
+
             services.AddControllers();
         }
 

@@ -1,10 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Collections;
 using Example1Api.Extensions;
 
-namespace Example1Api.OptionsValidators
+namespace Example1Api.Settings.Validators
 {
     /* References:
      * - https://github.com/ovation22/DataAnnotationsValidatorRecursive/blob/master/DataAnnotationsValidator/DataAnnotationsValidator/DataAnnotationsValidator.cs
