@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.Extensions.Options;
+using RecursiveDataAnnotationsValidation;
 
 namespace Example1Api.Settings.Validators
 {
@@ -9,6 +10,8 @@ namespace Example1Api.Settings.Validators
         : IValidateOptions<TOptions>
         where TOptions : class
     {
+        private readonly RecursiveDataAnnotationValidator _validator = new RecursiveDataAnnotationValidator();
+        
         public RecursiveDataAnnotationValidateOptions(string optionsBuilderName)
         {
             Name = optionsBuilderName;
@@ -19,7 +22,7 @@ namespace Example1Api.Settings.Validators
             if (Name != null && name != Name) return ValidateOptionsResult.Skip;
             
             var validationResults = new List<ValidationResult>();
-            if (RecursiveDataAnnotationValidator.TryValidateObjectRecursive(
+            if (_validator.TryValidateObjectRecursive(
                 options,
                 new ValidationContext(options, serviceProvider: null, items: null),
                 validationResults
